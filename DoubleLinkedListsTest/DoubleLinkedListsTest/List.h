@@ -36,7 +36,7 @@ inline List<T>::List() : m_head(nullptr), m_tail(nullptr), m_length(0)
 }
 
 template<typename T>
-inline List<T>::List(std::initializer_list<T> list) : m_length(list.size()), m_head(nullptr), m_tail(nullptr)
+inline List<T>::List(std::initializer_list<T> list) : m_length(0), m_head(nullptr), m_tail(nullptr)
 {
 	if (m_length <= 0)
 	{
@@ -44,9 +44,9 @@ inline List<T>::List(std::initializer_list<T> list) : m_length(list.size()), m_h
 	}
 
 
-	for (int i = 0; i < list.size(); i++)
+	for (T item : list)
 	{
-		pushBack(list[i]);
+		pushBack(item);
 	}
 }
 
@@ -83,7 +83,7 @@ inline void List<T>::pushBack(const T& value)
 {
 	Node<T>* newNode = new Node<T>(value);
 	m_length++;
-	if (!mtail)
+	if (!m_tail)
 	{
 		m_head = newNode;
 		m_tail = newNode;
@@ -98,7 +98,7 @@ template<typename T>
 inline T List<T>::popFront()
 {
 	if (m_length <= 0)
-		returnT();
+		return T();
 
 	T value = m_head->value;
 
@@ -125,7 +125,7 @@ template<typename T>
 inline T List<T>::popBack()
 {
 	if (!m_tail)
-		returnT();
+		return T();
 
 	T value = m_tail->value;
 
@@ -178,45 +178,102 @@ inline bool List<T>::insert(const T& value, int index)
 	newNode->next = node;
 	node->previous = newNode;
 	newNode->previous->next = newNode;
+	m_length++;
+	return true;
 }
 
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
+	if (!m_tail)
+		return false;
+
+	if (m_head->value == value)
+	{
+		popFront();
+		return true;
+	}
+
+	if (!m_head->next)
+		return false;
+
+	if (m_tail->value == value)
+	{
+		popBack();
+		return true;
+	}
+
+	if (m_length <= 2)
+	{
+		return false;
+	}
+
+	Node<T>* node = m_head->next;
+	while (node != m_tail->previous)
+	{
+		if (node->value == value)
+		{
+			node->previous->next = node->next;
+			node->next->previous = node->previous;
+			m_length--;
+			delete node;
+			node = nullptr;
+			return true;
+		}
+		node = node->next;
+	}
 	return false;
 }
 
 template<typename T>
 inline T List<T>::first() const
 {
-	return T();
+	if (!m_head)
+		return T();
+	return m_head->value;
 }
 
 template<typename T>
 inline T List<T>::last() const
 {
+	if (!m_tail)
+		return T();
 	return T();
 }
 
 template<typename T>
 inline Iterator<T> List<T>::begin() const
 {
-	return Iterator<T>();
+	if (!m_head)
+		return Iterator<T>();
+	return Iterator<T>(m_head);
 }
 
 template<typename T>
 inline Iterator<T> List<T>::end() const
 {
+	if (!m_tail)
+		return Iterator<T>();
 	return Iterator<T>();
 }
 
 template<typename T>
 inline void List<T>::destroy()
 {
+	if (!m_tail)
+		return;
+	for (int i = 0; i < m_length; i++)
+	{
+		popBack();
+	}
+
+	m_head = nullptr;
+	m_tail = nullptr;
+	m_length = 0;
 }
 
 template<typename T>
 inline int List<T>::getLength() const
 {
-	return 0;
+	return m_length;
 }
