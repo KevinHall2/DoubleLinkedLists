@@ -3,10 +3,10 @@
 
 int main()
 {
-    List<int> list;
+    /*List<int> list;
     list.pushBack(1);
     list.pushBack(2);
     list.pushFront(10);
-    return 0;
+    return 0;*/
 }
 

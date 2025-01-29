@@ -238,7 +238,7 @@ inline T List<T>::last() const
 {
 	if (!m_tail)
 		return T();
-	return T();
+	return m_tail->value;
 }
 
 template<typename T>
