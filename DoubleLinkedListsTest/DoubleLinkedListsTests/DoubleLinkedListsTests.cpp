@@ -20,17 +20,17 @@ namespace DoubleLinkedListsTests
 
 		TEST_METHOD(InitializerListConstructor)
 		{
-			List<int> list = { 9, 8, 7, 6, 5 };
+			List<int> list = List<int>({ 9, 8, 7, 6, 5 });
 			Iterator<int> iter = list.begin();
-			Assert::AreEqual(*iter, 9);
+			Assert::AreEqual(9, *iter);
 			iter++;
-			Assert::AreEqual(*iter, 8);
+			Assert::AreEqual(8, *iter);
 			iter++;
-			Assert::AreEqual(*iter, 7);
+			Assert::AreEqual(7, *iter);
 			iter++;
-			Assert::AreEqual(*iter, 6);
+			Assert::AreEqual(6, *iter);
 			iter++;
-			Assert::AreEqual(*iter, 5);
+			Assert::AreEqual(5, *iter);
 			Assert::AreEqual(list.getLength(), 5);
 
 		}
@@ -52,6 +52,26 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(3, list.first());
 			Assert::AreEqual(2, *(list.begin()++));
 			Assert::AreEqual(1, list.last());
+			Assert::AreEqual(3, list.getLength());
+		}
+
+		TEST_METHOD(PushBack)
+		{
+			List<int> list;
+			list.pushBack(1);
+			Assert::AreEqual(1, list.first());
+			Assert::AreEqual(1, list.last());
+			Assert::AreEqual(1, list.getLength());
+
+			list.pushBack(2);
+			Assert::AreEqual(2, list.last());
+			Assert::AreEqual(1, list.first());
+			Assert::AreEqual(2, list.getLength());
+
+			list.pushBack(3);
+			Assert::AreEqual(3, list.last());
+			Assert::AreEqual(2, *(list.end()--));
+			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(3, list.getLength());
 		}
 	};

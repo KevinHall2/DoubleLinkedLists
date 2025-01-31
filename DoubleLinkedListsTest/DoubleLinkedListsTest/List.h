@@ -38,7 +38,7 @@ inline List<T>::List() : m_head(nullptr), m_tail(nullptr), m_length(0)
 template<typename T>
 inline List<T>::List(std::initializer_list<T> list) : m_length(0), m_head(nullptr), m_tail(nullptr)
 {
-	if (m_length <= 0)
+	if (list.size() <= 0)
 	{
 		return;
 	}
@@ -254,7 +254,7 @@ inline Iterator<T> List<T>::end() const
 {
 	if (!m_tail)
 		return Iterator<T>();
-	return Iterator<T>();
+	return Iterator<T>(m_tail);
 }
 
 template<typename T>
