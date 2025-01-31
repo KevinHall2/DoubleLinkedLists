@@ -74,5 +74,15 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(3, list.getLength());
 		}
+
+		TEST_METHOD(PopFront)
+		{
+			List<int> list;
+			list.pushFront(3);
+			list.popFront();
+			Assert::AreEqual(2, list.first());
+			Assert::AreEqual(1, list.last());
+			Assert::AreEqual(2, list.getLength());
+		}
 	};
 }
