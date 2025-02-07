@@ -84,5 +84,78 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(1, list.last());
 			Assert::AreEqual(2, list.getLength());
 		}
+
+		TEST_METHOD(Remove)
+		{
+			List<int> list;
+			Assert::IsNotNull(&list);
+			list.pushBack(1);
+			list.pushBack(0);
+			list.pushBack(1);
+			list.pushBack(2);
+			list.pushBack(1);
+			list.pushBack(3);
+			list.pushBack(1);
+			Assert::AreEqual(7, list.getLength());
+			Iterator<int> iter = list.begin();
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(1, *iter);
+
+			int count = list.remove(1);
+			Assert::AreEqual(4, count);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(*iter, list.first());
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			Assert::AreEqual(*iter, list.last());
+
+			//test for when removing a value that isn't in the list
+			count = list.remove(5);
+			Assert::AreEqual(0, count);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(0, *iter);
+			iter++;
+			Assert::AreEqual(2, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			
+
+			//test for the entire list being the same value
+			list = List<int>();
+			Assert::IsNotNull(&list);
+			list.pushBack(3);
+			list.pushBack(3);
+			list.pushBack(3);
+			Assert::AreEqual(3, list.getLength());
+			iter = list.begin();
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			iter++;
+			Assert::AreEqual(3, *iter);
+			count = list.remove(3);
+			Assert::AreEqual(3, count);
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
+			
+			
+		}
 	};
 }

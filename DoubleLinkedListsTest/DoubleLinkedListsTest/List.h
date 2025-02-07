@@ -16,7 +16,7 @@ public:
 	T popFront();
 	T popBack();
 	bool insert(const T& value, int index);
-	bool remove(const T& value);
+	int remove(const T& value);
 	T first() const;
 	T last() const;
 	Iterator<T> begin() const;
@@ -183,46 +183,56 @@ inline bool List<T>::insert(const T& value, int index)
 }
 
 template<typename T>
-inline bool List<T>::remove(const T& value)
+inline int List<T>::remove(const T& value)
 {
 	if (!m_tail)
-		return false;
+		return 0;
 
-	if (m_head->value == value)
-	{
-		popFront();
-		return true;
-	}
+	int count = 0;
 
-	if (!m_head->next)
-		return false;
+	Node<T>* node = m_head;
 
-	if (m_tail->value == value)
-	{
-		popBack();
-		return true;
-	}
-
-	if (m_length <= 2)
-	{
-		return false;
-	}
-
-	Node<T>* node = m_head->next;
-	while (node != m_tail->previous)
+	while (node && m_tail && node != m_tail->next)
 	{
 		if (node->value == value)
 		{
-			node->previous->next = node->next;
-			node->next->previous = node->previous;
-			m_length--;
-			delete node;
-			node = nullptr;
-			return true;
+			if (node != m_head)
+			{
+				node->previous->next = node->next;
+			}
+			else
+			{
+				popFront();
+				node = m_head;
+				count++;
+				//if the head was removed, there's no need to check the tail, so continue
+				continue;
+			}
+
+			if (node != m_tail)
+			{
+				node->next->previous = node->previous;
+				Node<T>* temp = node;
+				node = node->next;
+				delete temp;
+				m_length--;
+				count++;
+
+			}
+			else
+			{
+				popBack();
+				node = m_tail;
+				count++;
+				continue;
+			}
 		}
-		node = node->next;
+		else
+		{
+			node = node->next;
+		}
 	}
-	return false;
+	return count;
 }
 
 template<typename T>
