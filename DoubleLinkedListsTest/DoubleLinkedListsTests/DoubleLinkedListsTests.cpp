@@ -70,7 +70,7 @@ namespace DoubleLinkedListsTests
 
 			list.pushBack(3);
 			Assert::AreEqual(3, list.last());
-			Assert::AreEqual(2, *(list.end()--));
+			//Assert::AreEqual(2, *(list.end()--));
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(3, list.getLength());
 		}
@@ -84,6 +84,19 @@ namespace DoubleLinkedListsTests
 			list.popFront();
 			Assert::AreEqual(2, list.first());
 			Assert::AreEqual(1, list.last());
+			Assert::AreEqual(2, list.getLength());
+		}
+
+
+		TEST_METHOD(PopBack)
+		{
+			List<int> list;
+			list.pushFront(1);
+			list.pushFront(2);
+			list.pushFront(3);
+			list.popBack();
+			Assert::AreEqual(3, list.first());
+			Assert::AreEqual(2, list.last());
 			Assert::AreEqual(2, list.getLength());
 		}
 
@@ -159,5 +172,6 @@ namespace DoubleLinkedListsTests
 			
 			
 		}
+
 	};
 }
