@@ -264,7 +264,7 @@ inline Iterator<T> List<T>::end() const
 {
 	if (!m_tail)
 		return Iterator<T>();
-	return Iterator<T>(m_tail->next);
+	return Iterator<T>(m_tail);
 }
 
 template<typename T>

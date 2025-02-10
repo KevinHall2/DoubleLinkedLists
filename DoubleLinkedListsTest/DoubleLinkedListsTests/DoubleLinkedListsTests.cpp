@@ -70,7 +70,7 @@ namespace DoubleLinkedListsTests
 
 			list.pushBack(3);
 			Assert::AreEqual(3, list.last());
-			//Assert::AreEqual(2, *(list.end()--));
+			Assert::AreEqual(2, *(list.end()--));
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(3, list.getLength());
 		}
@@ -171,6 +171,43 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(0, list.last());
 			
 			
+		}
+
+		TEST_METHOD(Destroy)
+		{
+			List<int> list;
+			list.pushFront(1);
+			list.destroy();
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
+
+			list.pushFront(1);
+			list.pushFront(2);
+			list.popFront();
+			list.destroy();
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
+
+			list.pushFront(1);
+			list.pushFront(2);
+			list.popBack();
+			list.destroy();
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
+
+			list.pushFront(1);
+			list.pushFront(2);
+			list.pushFront(3);
+			list.pushFront(4);
+			list.popBack();
+			list.popFront();
+			list.destroy();
+			Assert::AreEqual(0, list.getLength());
+			Assert::AreEqual(0, list.first());
+			Assert::AreEqual(0, list.last());
 		}
 
 	};
