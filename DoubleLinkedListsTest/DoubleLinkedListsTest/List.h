@@ -97,12 +97,12 @@ inline void List<T>::pushBack(const T& value)
 template<typename T>
 inline T List<T>::popFront()
 {
-	if (m_length <= 0)
+	if (!m_tail)
 		return T();
 
 	T value = m_head->value;
 
-	if (m_head->next)
+	if (!m_head->next)
 	{
 		delete m_head;
 		m_head = nullptr;

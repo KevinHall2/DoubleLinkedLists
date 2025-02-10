@@ -78,6 +78,8 @@ namespace DoubleLinkedListsTests
 		TEST_METHOD(PopFront)
 		{
 			List<int> list;
+			list.pushFront(1);
+			list.pushFront(2);
 			list.pushFront(3);
 			list.popFront();
 			Assert::AreEqual(2, list.first());
