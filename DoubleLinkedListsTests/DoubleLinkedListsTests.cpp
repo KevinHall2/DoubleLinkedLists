@@ -221,6 +221,6 @@ namespace DoubleLinkedListsTests
 		}
 
 
-		//the first, last, begin, and end functions are being used in every other test
+		//the first, last, begin, getLength, and end functions are being used in every assert
 	};
 }
