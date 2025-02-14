@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
-#include "../DoubleLinkedListsTest/List.h"
+#include "../DoubleLinkedList/List.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -109,6 +109,7 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(1, list.first());
 			Assert::AreEqual(1, list.last());
 		}
+
 		TEST_METHOD(Remove)
 		{
 			List<int> list;
@@ -219,5 +220,7 @@ namespace DoubleLinkedListsTests
 			Assert::AreEqual(0, list.last());
 		}
 
+
+		//the first, last, begin, and end functions are being used in every other test
 	};
 }
